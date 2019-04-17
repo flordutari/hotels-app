@@ -10,20 +10,21 @@ class RoomsList extends Component {
 
   render() {
     return (
-      this.state.rooms.map((room, index) => {
-        return (
-          <RoomCard 
-            key={`id${index}`}
-            name={room.name}
-            image={room.image}
-            description={room.description}
-            size={room.size}
-            beds={room.beds}
-            people={room.people}
-            price={room.price}
-          />
-        )
-      })
+        this.state.rooms.map((room, index) => {
+          return (
+            <RoomCard 
+              key={`id${index}`}
+              id={room.id}
+              name={room.name}
+              image={room.image}
+              description={room.description}
+              size={room.size}
+              beds={room.beds}
+              people={room.people}
+              price={room.price}
+            />
+          )
+        })
     );
   }
 }

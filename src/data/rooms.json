@@ -1,5 +1,6 @@
 [
   {
+    "id": "1",
     "name": "Mini Dreamy Room",
     "image": "images/cocos/room_1.png",
     "description": "Generous and comfortable these modern furnished rooms offer two queen-size beds and are on the first floor.",
@@ -7,11 +8,12 @@
     "beds": "1",
     "people": "2",
     "price": {
-      "common": "400",
-			"discount": "350"
+      "common": "€400",
+			"discount": "€350"
     }
   },
   {
+    "id": "2",
     "name": "Sweet Bungalow",
     "image": "images/cocos/room_2.png",
     "description": "The perfect blend of comfort and culture, our superior room with a central garden view has the stunning, and comes with a double bed.",
@@ -19,11 +21,12 @@
     "beds": "1",
     "people": "2",
     "price": {
-      "common": "500",
-			"discount": "400"
+      "common": "€500",
+			"discount": "€400"
     }
   },
   {
+    "id": "3",
     "name": "Los Cocos Suite",
     "image": "images/cocos/room_3.png",
     "description": "If you want a little extra from your stay, you might like our superior rooms. A garden view room has a private patio and a double bed.",
@@ -31,8 +34,8 @@
     "beds": "3",
     "people": "4",
     "price": {
-      "common": "750",
-			"discount": "600"
+      "common": "€750",
+			"discount": "€600"
     }
   }
 ]

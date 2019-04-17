@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
 class RoomCard extends Component {
+
   render() {
     const { image, name, description, size, beds, people, price: { common, discount } } = this.props;
     return (
-      <div className="card clearfix pointer active">
+      <div className="card clearfix pointer">
         <div className="room-image">
             <img src={image} width="100%" alt="Mini dreamy room"/>
         </div>
@@ -24,7 +25,7 @@ class RoomCard extends Component {
             </div>
             <div className="item">People: {people}</div>
             <div className="item price text-right">
-                <span className="line-through">€{common}</span>
+                <span className="line-through">{common}</span>
                 {discount}
             </div>
           </div>
