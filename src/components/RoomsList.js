@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
-import Sidebar from '../components/Sidebar';
+import RoomCard from './RoomCard';
+import rooms from '../data/rooms.json';
 
 class RoomsList extends Component {
+
+  state = {
+    rooms
+  }
+
   render() {
     return (
-      <div className="container rar-summary">
-        <div className="row">
-          <div className="col-md-8 main">
-              <h2>Rooms & Rates</h2>
-              <p className="subtitle">Plan your perfect stay at our hotel</p>
-              <img src="images/cocos/wizard_1.png" width="480" className="wizard" alt="wizard"/>
-          </div>
-          <div className="col-md-4 sidebar-header">
-            <Sidebar />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-md-8 main">
-              
-          </div>
-        </div>
-      </div>
+      this.state.rooms.map((room, index) => {
+        return (
+          <RoomCard 
+            key={`id${index}`}
+            name={room.name}
+            image={room.image}
+            description={room.description}
+            size={room.size}
+            beds={room.beds}
+            people={room.people}
+            price={room.price}
+          />
+        )
+      })
     );
   }
 }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import NavBar from '../components/NavBar';
 import Form from '../components/Form';
-import RoomsList from '../components/RoomsList';
+import Container from '../components/Container';
+import Footer from '../components/Footer';
 
 class Home extends Component {
   render() {
@@ -9,7 +10,8 @@ class Home extends Component {
       <div className="room-and-rates">
         <NavBar />
         <Form />
-        <RoomsList />
+        <Container />
+        <Footer />
       </div>
     );
   }

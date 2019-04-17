@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 class Form extends Component {
   render() {
     return (
-      <div class="engine text-center">
-        <div class="engine-wrapper">
-          <div class="container text-center">
+      <div className="engine text-center">
+        <div className="engine-wrapper">
+          <div className="container text-center">
 
             <form id="search" className="form-inline" action="">
 
