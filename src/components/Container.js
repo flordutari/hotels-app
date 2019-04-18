@@ -5,6 +5,7 @@ import Sidebar from './Sidebar';
 class Container extends Component {
 
   render() {
+    const { checkIn, checkOut, adults, children } = this.props;
     return (
       <div className="container rar-summary">
 
@@ -22,7 +23,12 @@ class Container extends Component {
             <RoomsList />
           </div>
           <div className="col-md-4 sidebar">
-            <Sidebar />
+            <Sidebar 
+            checkIn={checkIn}
+            checkOut={checkOut}
+            adults={adults}
+            children={children}
+            />
           </div>
         </div>
 

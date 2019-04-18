@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Sidebar extends Component {
-  render() {
+	render() {
+    const { checkIn, checkOut, adults, children } = this.props;
     return (
 			<div className="card">
 					<h2>Reservation Summary</h2>
@@ -37,13 +38,13 @@ class Sidebar extends Component {
 
 							<div className="card-content">
 									<p className="main">Reservation date</p>
-									<p className="base">From <strong><span id="checkin-summary">4/7/2018</span></strong> to <strong id="checkout-summary">15/7/2018</strong></p>
+									<p className="base">From <strong><span id="checkin-summary">{checkIn}</span></strong> to <strong id="checkout-summary">{checkOut}</strong></p>
 							</div>
 
 							<div className="card-content">
 									<p className="main">People</p>
-									<p className="base" id="adults-summary">2 Adults</p>
-									<p className="base" id="children-summary">2 Children</p>
+									<p className="base" id="adults-summary">{adults} Adults</p>
+									<p className="base" id="children-summary">{children} Children</p>
 							</div>
 
 							<div className="card-checkout clearfix">

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import moment from 'moment'
+import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class Form extends Component {
 
   state = {
-    todaysDate: '',
-    tomorrowsDate: ''
+    checkIn: '',
+    checkOut: '',
+    adults: '',
+    children: ''
   }
 
   componentDidMount = () => {
@@ -17,41 +20,50 @@ class Form extends Component {
     const today = moment().format('DD/MM/YYYY');
     const tomorrow = moment().add(1, 'days').format('DD/MM/YYYY');
     this.setState({
-      todaysDate: today,
-      tomorrowsDate: tomorrow
+      checkIn: today,
+      checkOut: tomorrow
     }) 
   }
 
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name] : e.target.value,
+    })
+  }
+
+  handleChangeCheckIn  = date => this.setState({ checkIn: moment(date).format('DD/MM/YYYY') });
+  handleChangeCheckOut = date => this.setState({ checkOut: moment(date).format('DD/MM/YYYY') });
+
   render() {
-    const { todaysDate, tomorrowsDate } = this.state;
+    const { checkIn, checkOut, adults, children } = this.state;
+    const { submit } = this.props;
     return (
       <div className="engine text-center">
         <div className="engine-wrapper">
           <div className="container text-center">
 
-            <form id="search" className="form-inline" action="">
+            <form onSubmit={(e) => {submit(e, this.state)}} id="search" className="form-inline" action="">
 
               <div className="form-group">
                 <div className="input-group date" data-date-format="dd/mm/yyyy">
-                  <input id="checkin" type="text" className="form-control" placeholder={todaysDate}/>
+                  <DatePicker onChange={this.handleChangeCheckIn} placeholder={checkIn} value={checkIn} id="checkin" className="form-control react-datepicker"/>
                   <div className="input-group-addon" >
-                      <span className="glyphicon glyphicon-calendar"></span>
+                    <span className="glyphicon glyphicon-calendar"></span>
                   </div>
                 </div>
               </div>
 
               <div className="form-group">
                 <div className="input-group date" data-date-format="dd/mm/yyyy">
-                  <input id="checkout" type="text" className="form-control" placeholder={tomorrowsDate}/>
+                  <DatePicker onChange={this.handleChangeCheckOut} placeholder={checkOut} value={checkOut} id="checkout" className="react-datepicker form-control"/>
                   <div className="input-group-addon" >
-                      <span className="glyphicon glyphicon-calendar"></span>
+                    <span className="glyphicon glyphicon-calendar"></span>
                   </div>
                 </div>
               </div>
-
 
               <div className="form-group select-inline">
-                <select className="form-control" placeholder="Adults" id="adults">
+                <select name="adults" onChange={this.handleChange} value={adults} className="form-control" placeholder="Adults" id="adults">
                   <option defaultValue>Adults</option>
                   <option value="1">Adults: 1</option>
                   <option value="2">Adults: 2</option>
@@ -66,7 +78,7 @@ class Form extends Component {
               </div>
 
               <div className="form-group select-inline">
-                <select className="form-control" placeholder="Children" id="children">
+                <select name="children" onChange={this.handleChange} value={children} className="form-control" placeholder="Children" id="children">
                   <option defaultValue>Children</option>
                   <option value="1">Children: 1</option>
                   <option value="2">Children: 2</option>
@@ -81,7 +93,7 @@ class Form extends Component {
               </div>
 
               <div className="form-group">
-                <Link to="#" className="btn btn-primary">Modify</Link>
+                <input type="submit" className="btn btn-primary" value="Modify"/>
               </div>
             </form>
             
@@ -93,33 +105,3 @@ class Form extends Component {
 }
 
 export default Form;
-
-// var DatePicker = require("react-bootstrap-date-picker");
- 
-// var App = React.createClass({
-//   getInitialState: function(){
-//     var value = new Date().toISOString();
-//     return {
-//       value: value
-//     }
-//   },
-//   handleChange: function(value, formattedValue) {
-//     this.setState({
-//       value: value, // ISO String, ex: "2016-11-19T12:00:00.000Z"
-//       formattedValue: formattedValue // Formatted String, ex: "11/19/2016"
-//     });
-//   },
-//   componentDidUpdate: function(){
-//     // Access ISO String and formatted values from the DOM.
-//     var hiddenInputElement = document.getElementById("example-datepicker");
-//     console.log(hiddenInputElement.value); // ISO String, ex: "2016-11-19T12:00:00.000Z"
-//     console.log(hiddenInputElement.getAttribute('data-formattedvalue')) // Formatted String, ex: "11/19/2016"
-//   },
-//   render: function(){
-//     return <FormGroup>
-//       <ControlLabel>Label</ControlLabel>
-//       <DatePicker id="example-datepicker" value={this.state.value} onChange={this.handleChange} />
-//       <HelpBlock>Help</HelpBlock>
-//     </FormGroup>;
-//   }
-// });
