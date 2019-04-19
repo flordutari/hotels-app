@@ -9,24 +9,25 @@ class RoomsList extends Component {
   }
 
   render() {
-    const { handleCardClick } = this.props;
+    const { handleCardClick, promo } = this.props;
     return (
-        this.state.rooms.map((room, index) => {
-          return (
-            <RoomCard 
-              key={`id${index}`}
-              id={room.id}
-              name={room.name}
-              image={room.image}
-              description={room.description}
-              size={room.size}
-              beds={room.beds}
-              people={room.people}
-              price={room.price}
-              handleCardClick={handleCardClick}
-            />
-          )
-        })
+      this.state.rooms.map((room, index) => {
+        return (
+          <RoomCard 
+            key={`id${index}`}
+            id={room.id}
+            name={room.name}
+            image={room.image}
+            description={room.description}
+            size={room.size}
+            beds={room.beds}
+            people={room.people}
+            roomPrice={room.roomPrice}
+            handleCardClick={handleCardClick}
+            promo={promo}
+          />
+        )
+      })
     );
   }
 }

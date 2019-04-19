@@ -1,10 +1,19 @@
 #checkin, #checkout {
-  width: 100%!important;
+  width: 100%;
   border: 1px solid #ccc;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  border-radius: 4px;
   font-family: 'Dosis';
   font-size: 18px;
+  display: inline-block;
+  margin: 6px 4px 0 4px;
 }
 
-font-size: 22px;
+div.react-datepicker-popper {
+  z-index: 50;
+}
+
+.dateMistake {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 8px;
+}

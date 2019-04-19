@@ -7,10 +7,7 @@
     "size": "25m2",
     "beds": "1",
     "people": "2",
-    "price": {
-      "common": "400",
-			"discount": "350"
-    }
+    "roomPrice": "400"
   },
   {
     "id": "2",
@@ -20,10 +17,7 @@
     "size": "50m2",
     "beds": "1",
     "people": "2",
-    "price": {
-      "common": "500",
-			"discount": "400"
-    }
+    "roomPrice": "500"
   },
   {
     "id": "3",
@@ -33,9 +27,6 @@
     "size": "125m2",
     "beds": "3",
     "people": "4",
-    "price": {
-      "common": "750",
-			"discount": "600"
-    }
+    "roomPrice": "750"
   }
 ]

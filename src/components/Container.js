@@ -10,27 +10,31 @@ class Container extends Component {
   state = {
     checkIn: '',
     checkOut: '',
-    adults: '',
+    adults: '2',
     children: '',
-    checkInLS: '',
-		checkOutLS: '',
-		adultsLS: '',
-    childrenLS: '',
     roomName: 'Room',
-    roomPrice: {common:'0', discount: '0'},
-		daysQuantity: '1',
+    roomPrice:'0',
+    daysQuantity: '1',
+    quantity: '1',
+    mistake: false
   }
 
   componentDidMount = () => {
     this.getDate();
-    fetch(URL)
-		.then(result => this.setState({
-			checkInLS: ls.get('checkIn') || '',
-			checkOutLS: ls.get('checkOut') || '',
-			adultsLS: ls.get('adults') || '',
-			childrenLS: ls.get('children') || '',
-		}));
-  }
+    if (localStorage.length > 0){
+      fetch(URL)
+      .then(() => this.setState({
+        checkIn: ls.get('checkIn'),
+        checkOut: ls.get('checkOut'),
+        adults: ls.get('adults'),
+        children: ls.get('children'),
+        daysQuantity: ls.get('daysQuantity'),
+        roomName: ls.get('roomName'),
+        roomPrice: ls.get('roomPrice'),
+        quantity: ls.get('quantity'),
+      }));
+    }
+	}
 
   handleSubmit = (e, state) => {
     e.preventDefault();
@@ -40,14 +44,13 @@ class Container extends Component {
       adults: state.adults,
       children: state.children,
     })
-    this.getDaysQuantity();
   }
 
-  handleCardClick = (e, props) => {
+  handleCardClick = (e, props, roomPrice) => {
     e.preventDefault();
     this.setState({
       roomName: props.name,
-      roomPrice: props.price,
+      roomPrice: roomPrice,
     })
   }
 
@@ -60,26 +63,93 @@ class Container extends Component {
     }) 
   }
 
-	getDaysQuantity = () => {
-    const { checkIn, checkOut } = this.state;
-    var start = moment(checkIn, 'DD/MM/YYYY');
-    var end= moment(checkOut, 'DD/MM/YYYY');
+	getDaysQuantity = (checkIn, checkOut) => {
+    const start = moment(checkIn, 'DD/MM/YYYY');
+    const end= moment(checkOut, 'DD/MM/YYYY');
 
     const daysQuantity = end.diff(start, 'days');
-    return (
-      this.setState({
-        daysQuantity
-      })
-    ) 
+    if (daysQuantity <= 0) {
+      return (
+        this.setState({
+          mistake: true,
+          checkOut: 'Checkout'
+        })
+      )
+    } else {
+      return (
+        this.setState({
+          daysQuantity,
+          mistake: false
+        })
+      )
+    }
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name] : e.target.value,
+    })
+  }
+
+  handleChangeCheckIn  = date => {
+    const checkIn = moment(date).format('DD/MM/YYYY');
+    const { checkOut } = this.state;
+    this.setState({ 
+      checkIn
+    });
+    this.getDaysQuantity(checkIn, checkOut);
+  }
+
+  handleChangeCheckOut  = date => {
+    const checkOut = moment(date).format('DD/MM/YYYY');
+    const { checkIn } = this.state;
+    this.setState({ 
+      checkOut
+    });
+    this.getDaysQuantity(checkIn, checkOut);
+  }
+
+	handleSaveToLocalStorage = (props) => {
+		ls.set('checkIn', props.checkIn);
+		ls.set('checkOut', props.checkOut);
+		ls.set('adults', props.adults);
+		ls.set('children', props.children);
+		ls.set('daysQuantity', props.daysQuantity)
+		ls.set('roomName', props.roomName);
+		ls.set('roomPrice', props.roomPrice);
+		ls.set('quantity', props.quantity);
+  }
+
+	handleQuantity = (e) => {
+		this.setState({ quantity: e.target.value })
   }
 
   render() {
-    const { checkIn, checkOut, adults, children, roomName, roomPrice:{ common, discount }, daysQuantity } = this.state;
+    const { checkIn, 
+            checkOut, 
+            adults, 
+            children, 
+            roomName, 
+            roomPrice,
+            daysQuantity,
+            quantity,
+            mistake
+          } = this.state;
+    const { promo } = this.props;
     return (
       <>
         <Form 
           submit={this.handleSubmit}
+          handleChange={this.handleChange}
+          handleChangeCheckIn={this.handleChangeCheckIn}
+          handleChangeCheckOut={this.handleChangeCheckOut}
+          checkIn={checkIn}
+          checkOut={checkOut}
+          adults={adults}
+          children={children}
         />
+        {(mistake) ?
+        <p className="dateMistake">Looks like there is a mistake, check the dates!</p> : null }
         <div className="container rar-summary">
 
           <div className="row">
@@ -95,6 +165,7 @@ class Container extends Component {
             <div className="col-md-8 main">
               <RoomsList 
               handleCardClick={this.handleCardClick}
+              promo={promo}
               />
             </div>
             <div className="col-md-4 sidebar">
@@ -104,10 +175,12 @@ class Container extends Component {
                 adults={adults}
                 children={children}
                 roomName={roomName}
-                common={common}
-                discount={discount}
+                roomPrice={roomPrice}
                 submit={this.handleSubmit}
                 daysQuantity={daysQuantity}
+                quantity={quantity}
+                handleQuantity={this.handleQuantity}
+                handleSaveToLocalStorage={this.handleSaveToLocalStorage}
               />
             </div>
           </div>

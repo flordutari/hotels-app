@@ -6,13 +6,16 @@ import Footer from '../components/Footer';
 class Home extends Component {
 
   render() {
-      return (
-        <div className="room-and-rates">
-            <NavBar />
-            <Container />
-            <Footer />
-        </div>
-      )
+    const { search } = this.props.location;
+    return (
+      <div className="room-and-rates">
+          <NavBar />
+          <Container 
+            promo={search}
+          />
+          <Footer />
+      </div>
+    )
   }
 }
 

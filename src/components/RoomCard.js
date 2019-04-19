@@ -2,10 +2,36 @@ import React, { Component } from 'react';
 
 class RoomCard extends Component {
 
+  state = {
+    roomPrice: ''
+  }
+
+  componentDidMount = () => {
+    this.setState({
+      roomPrice: this.props.roomPrice
+    })
+    this.checkDiscount();
+  }
+
+  checkDiscount = () => {
+    const { promo, roomPrice } = this.props;
+    const promoStr = promo.toString();
+    const discount = (promoStr).slice(promoStr.length - 2, promoStr.length)
+    if(promo.includes('promo_code')){
+      const applyDiscount = parseInt(discount)/100;
+      const priceWithDiscount = roomPrice - Math.floor(roomPrice * applyDiscount);
+      console.log(priceWithDiscount, roomPrice)
+      this.setState({
+        roomPrice: priceWithDiscount
+      })
+    }
+  }
+
   render() {
-    const { image, name, description, size, beds, people, price: { common }, handleCardClick } = this.props;
+    const { image, name, description, size, beds, people, handleCardClick } = this.props;
+    const { roomPrice } = this.state;
     return (
-      <div className="card clearfix pointer" onClick={(e) => {handleCardClick(e, this.props)}}>
+      <div className="card clearfix pointer" onClick={(e) => {handleCardClick(e, this.props, roomPrice)}}>
         <div className="room-image">
             <img src={image} width="100%" alt={name}/>
         </div>
@@ -24,11 +50,7 @@ class RoomCard extends Component {
                 <div>Beds: {beds}</div>
             </div>
             <div className="item">People: {people}</div>
-            <div className="item price text-right">
-              €{common}
-              {/* <span className="line-through">{common}</span>
-              {discount} */}
-            </div>
+            <div className="item price text-right">€{roomPrice}</div>
           </div>
         </div>
       </div>
