@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 class Form extends Component {
 
   state = {
     checkIn: '',
     checkOut: '',
-    adults: '',
+    adults: '2',
     children: ''
   }
 
   componentDidMount = () => {
-    this.getDate()
+    this.getDate();
   }
 
   getDate = () => {
@@ -35,8 +35,9 @@ class Form extends Component {
   handleChangeCheckOut = date => this.setState({ checkOut: moment(date).format('DD/MM/YYYY') });
 
   render() {
-    const { checkIn, checkOut, adults, children } = this.state;
     const { submit } = this.props;
+    const { checkIn, checkOut, adults, children } = this.state;
+
     return (
       <div className="engine text-center">
         <div className="engine-wrapper">

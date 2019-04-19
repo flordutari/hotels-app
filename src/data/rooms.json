@@ -8,8 +8,8 @@
     "beds": "1",
     "people": "2",
     "price": {
-      "common": "€400",
-			"discount": "€350"
+      "common": "400",
+			"discount": "350"
     }
   },
   {
@@ -21,8 +21,8 @@
     "beds": "1",
     "people": "2",
     "price": {
-      "common": "€500",
-			"discount": "€400"
+      "common": "500",
+			"discount": "400"
     }
   },
   {
@@ -34,8 +34,8 @@
     "beds": "3",
     "people": "4",
     "price": {
-      "common": "€750",
-			"discount": "€600"
+      "common": "750",
+			"discount": "600"
     }
   }
 ]

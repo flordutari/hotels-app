@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 class RoomCard extends Component {
 
   render() {
-    const { image, name, description, size, beds, people, price: { common, discount } } = this.props;
+    const { image, name, description, size, beds, people, price: { common, discount }, handleCardClick } = this.props;
     return (
-      <div className="card clearfix pointer">
+      <div className="card clearfix pointer" onClick={(e) => {handleCardClick(e, this.props)}}>
         <div className="room-image">
-            <img src={image} width="100%" alt="Mini dreamy room"/>
+            <img src={image} width="100%" alt={name}/>
         </div>
 
         <div className="room-content">
@@ -19,14 +19,15 @@ class RoomCard extends Component {
           <div className="room-info">
             <div className="item">
                 <span className="inline-block">
-                    <img src="images/icons/double-bed.svg" width="40" alt="Mini dreamy room"/>
+                    <img src="images/icons/double-bed.svg" width="40" alt={name}/>
                 </span>
                 <div>Beds: {beds}</div>
             </div>
             <div className="item">People: {people}</div>
             <div className="item price text-right">
-                <span className="line-through">{common}</span>
-                {discount}
+              €{common}
+              {/* <span className="line-through">{common}</span>
+              {discount} */}
             </div>
           </div>
         </div>

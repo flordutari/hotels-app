@@ -5,10 +5,11 @@ import rooms from '../data/rooms.json';
 class RoomsList extends Component {
 
   state = {
-    rooms
+    rooms,
   }
 
   render() {
+    const { handleCardClick } = this.props;
     return (
         this.state.rooms.map((room, index) => {
           return (
@@ -22,6 +23,7 @@ class RoomsList extends Component {
               beds={room.beds}
               people={room.people}
               price={room.price}
+              handleCardClick={handleCardClick}
             />
           )
         })
