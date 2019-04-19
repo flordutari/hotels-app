@@ -20,7 +20,6 @@ class RoomCard extends Component {
     if(promo.includes('promo_code')){
       const applyDiscount = parseInt(discount)/100;
       const priceWithDiscount = roomPrice - Math.floor(roomPrice * applyDiscount);
-      console.log(priceWithDiscount, roomPrice)
       this.setState({
         roomPrice: priceWithDiscount
       })

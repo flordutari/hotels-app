@@ -65,7 +65,7 @@ class Container extends Component {
 
 	getDaysQuantity = (checkIn, checkOut) => {
     const start = moment(checkIn, 'DD/MM/YYYY');
-    const end= moment(checkOut, 'DD/MM/YYYY');
+    const end = moment(checkOut, 'DD/MM/YYYY');
 
     const daysQuantity = end.diff(start, 'days');
     if (daysQuantity <= 0) {
@@ -92,21 +92,44 @@ class Container extends Component {
   }
 
   handleChangeCheckIn  = date => {
+    const today = moment().format('DD/MM/YYYY');
     const checkIn = moment(date).format('DD/MM/YYYY');
-    const { checkOut } = this.state;
-    this.setState({ 
-      checkIn
-    });
-    this.getDaysQuantity(checkIn, checkOut);
+    const start = moment(today, 'DD/MM/YYYY');
+    const end= moment(checkIn, 'DD/MM/YYYY');
+
+    const difference = end.diff(start, 'days');
+    if(difference > 0) {
+      const { checkOut } = this.state;
+      this.setState({ 
+        checkIn
+      });
+      this.getDaysQuantity(checkIn, checkOut);
+    } else {
+      this.setState({ 
+        checkIn: today
+      });
+    }
   }
 
   handleChangeCheckOut  = date => {
-    const checkOut = moment(date).format('DD/MM/YYYY');
     const { checkIn } = this.state;
-    this.setState({ 
-      checkOut
-    });
-    this.getDaysQuantity(checkIn, checkOut);
+    const checkOut = moment(date).format('DD/MM/YYYY');
+    const checkOutCheck = moment(date).add(1, 'days').format('DD/MM/YYYY');
+    const start = moment(checkIn, 'DD/MM/YYYY');
+    const end= moment(checkOutCheck, 'DD/MM/YYYY');
+
+    const difference = end.diff(start, 'days');
+    if(difference > 0) {
+      const { checkIn } = this.state;
+      this.setState({ 
+        checkOut
+      });
+      this.getDaysQuantity(checkIn, checkOut);
+    } else {
+      this.setState({ 
+        checkOut: checkOutCheck
+      });
+    }
   }
 
 	handleSaveToLocalStorage = (props) => {

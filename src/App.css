@@ -5,7 +5,26 @@
   font-family: 'Dosis';
   font-size: 18px;
   display: inline-block;
-  margin: 6px 4px 0 4px;
+  margin-top: 6px;
+}
+
+.react-datepicker-wrapper, 
+.input-group,
+.react-datepicker__input-container {
+  display: inline-block;
+  position: relative;
+  display: table;
+  border-collapse: separate;
+  width: -webkit-fill-available;
+}
+
+div.react-datepicker {
+  font-size: 1.2rem;
+  font-family: 'Dosis';
+}
+
+.react-datepicker-wrapper {
+  padding: 0 5px;
 }
 
 div.react-datepicker-popper {
