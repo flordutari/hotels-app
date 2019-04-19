@@ -17,7 +17,8 @@ class Container extends Component {
 		adultsLS: '',
     childrenLS: '',
     roomName: 'Room',
-    roomPrice: {common:'0', discount: '0'}
+    roomPrice: {common:'0', discount: '0'},
+		daysQuantity: '1',
   }
 
   componentDidMount = () => {
@@ -37,8 +38,9 @@ class Container extends Component {
       checkIn: state.checkIn,
       checkOut: state.checkOut,
       adults: state.adults,
-      children: state.children
+      children: state.children,
     })
+    this.getDaysQuantity();
   }
 
   handleCardClick = (e, props) => {
@@ -58,8 +60,21 @@ class Container extends Component {
     }) 
   }
 
+	getDaysQuantity = () => {
+    const { checkIn, checkOut } = this.state;
+    var start = moment(checkIn, 'DD/MM/YYYY');
+    var end= moment(checkOut, 'DD/MM/YYYY');
+
+    const daysQuantity = end.diff(start, 'days');
+    return (
+      this.setState({
+        daysQuantity
+      })
+    ) 
+  }
+
   render() {
-    const { checkIn, checkOut, adults, children, roomName, roomPrice:{ common, discount } } = this.state;
+    const { checkIn, checkOut, adults, children, roomName, roomPrice:{ common, discount }, daysQuantity } = this.state;
     return (
       <>
         <Form 
@@ -91,6 +106,8 @@ class Container extends Component {
                 roomName={roomName}
                 common={common}
                 discount={discount}
+                submit={this.handleSubmit}
+                daysQuantity={daysQuantity}
               />
             </div>
           </div>

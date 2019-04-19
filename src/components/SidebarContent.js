@@ -5,7 +5,7 @@ import ls from 'local-storage';
 class SidebarContent extends Component {
 
 	state = {
-		quantity:'1'
+		quantity:'1',
 	}
 
 	handleQuantity = (e) => {
@@ -17,14 +17,16 @@ class SidebarContent extends Component {
 		ls.set('checkOut', props.checkOut);
 		ls.set('adults', props.adults);
 		ls.set('children', props.children);
+		ls.set('daysQuantity', state.daysQuantity)
 		ls.set('roomName', props.roomName);
 		ls.set('common', props.common);
 		ls.set('quantity', state.quantity);
 	}
 
 	render() {
-		const { checkIn, checkOut, adults, children, roomName, common, discount } = this.props;
+		const { checkIn, checkOut, adults, children, roomName, common, daysQuantity } = this.props;
 		const { quantity } = this.state;
+		console.log(daysQuantity)
     return (
 			<div className="card">
 					<h2>Reservation Summary</h2>
@@ -74,7 +76,7 @@ class SidebarContent extends Component {
 											<p className="base"><Link to="#">Price details ></Link></p>
 									</div>
 									<div className="right pull-right">
-											<p className="main">€{common * parseInt(quantity)}</p>
+											<p className="main">€{common * parseInt(quantity) * parseInt(daysQuantity)}</p>
 									</div>
 							</div>
 

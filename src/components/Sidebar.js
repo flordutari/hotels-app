@@ -4,7 +4,7 @@ import SidebarContent from './SidebarContent';
 class Sidebar extends Component {
 
 	render() {
-		const { checkIn, checkOut, adults, children, roomName, common, discount } = this.props;
+		const { checkIn, checkOut, adults, children, roomName, common, discount, daysQuantity } = this.props;
 		return (
 			<SidebarContent 
 				checkIn={checkIn}
@@ -14,6 +14,7 @@ class Sidebar extends Component {
 				roomName={roomName}
 				common={common}
 				discount={discount}
+				daysQuantity={daysQuantity}
 			/>
 		)
   }

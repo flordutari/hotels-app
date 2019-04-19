@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class RoomCard extends Component {
 
   render() {
-    const { image, name, description, size, beds, people, price: { common, discount }, handleCardClick } = this.props;
+    const { image, name, description, size, beds, people, price: { common }, handleCardClick } = this.props;
     return (
       <div className="card clearfix pointer" onClick={(e) => {handleCardClick(e, this.props)}}>
         <div className="room-image">

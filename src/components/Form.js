@@ -9,7 +9,7 @@ class Form extends Component {
     checkIn: '',
     checkOut: '',
     adults: '2',
-    children: ''
+    children: '',
   }
 
   componentDidMount = () => {
@@ -22,7 +22,7 @@ class Form extends Component {
     this.setState({
       checkIn: today,
       checkOut: tomorrow
-    }) 
+    })
   }
 
   handleChange = (e) => {
