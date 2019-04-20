@@ -51,6 +51,8 @@ class Container extends Component {
     })
   }
 
+  //Cards changes
+
   handleCardClick = (e, props, roomPrice) => {
     e.preventDefault();
     this.setState({
@@ -58,6 +60,8 @@ class Container extends Component {
       roomPrice: roomPrice,
     })
   }
+
+  //Save info
 
 	handleSaveToLocalStorage = (props) => {
 		ls.set('checkIn', props.checkIn);

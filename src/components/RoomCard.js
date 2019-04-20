@@ -17,7 +17,7 @@ class RoomCard extends Component {
     const { promo, roomPrice } = this.props;
     const promoStr = promo.toString();
     const discount = parseInt((promoStr).slice(promoStr.length - 2, promoStr.length));
-    if(promo.includes('promo_code') && discount > 0 && discount < 100) {
+    if(promo.includes('promo_code') && discount > 0 && discount < 99) {
       const priceWithDiscount = roomPrice - Math.floor(roomPrice * discount / 100);
       this.setState({
         roomPrice: priceWithDiscount
