@@ -1,4 +1,4 @@
-## `npm install'
+## `npm install`
 
 Before start we need to install node_modules.
 
