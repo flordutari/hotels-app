@@ -16,13 +16,14 @@ class RoomCard extends Component {
   checkDiscount = () => {
     const { promo, roomPrice } = this.props;
     const promoStr = promo.toString();
-    const discount = (promoStr).slice(promoStr.length - 2, promoStr.length)
-    if(promo.includes('promo_code')){
-      const applyDiscount = parseInt(discount)/100;
-      const priceWithDiscount = roomPrice - Math.floor(roomPrice * applyDiscount);
+    const discount = parseInt((promoStr).slice(promoStr.length - 2, promoStr.length));
+    if(promo.includes('promo_code') && discount > 0 && discount < 100) {
+      const priceWithDiscount = roomPrice - Math.floor(roomPrice * discount / 100);
       this.setState({
         roomPrice: priceWithDiscount
       })
+    } else if (promo.length > 1 && !(promo.includes('promo_code'))){
+      this.props.push('/error')
     }
   }
 

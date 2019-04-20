@@ -9,7 +9,7 @@ class RoomsList extends Component {
   }
 
   render() {
-    const { handleCardClick, promo } = this.props;
+    const { handleCardClick, promo, push } = this.props;
     return (
       this.state.rooms.map((room, index) => {
         return (
@@ -25,6 +25,7 @@ class RoomsList extends Component {
             roomPrice={room.roomPrice}
             handleCardClick={handleCardClick}
             promo={promo}
+            push={push}
           />
         )
       })

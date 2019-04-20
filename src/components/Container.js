@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import RoomsList from './RoomsList';
 import Sidebar from './Sidebar';
 import Form from '../components/Form';
-import moment from 'moment';
 import ls from 'local-storage';
 
 class Container extends Component {
+
+  //States
 
   state = {
     checkIn: '',
@@ -19,8 +20,9 @@ class Container extends Component {
     mistake: false
   }
 
+  //Component did mount
+
   componentDidMount = () => {
-    this.getDate();
     if (localStorage.length > 0){
       fetch(URL)
       .then(() => this.setState({
@@ -34,7 +36,9 @@ class Container extends Component {
         quantity: ls.get('quantity'),
       }));
     }
-	}
+  }
+  
+  //Form submit (Modify)
 
   handleSubmit = (e, state) => {
     e.preventDefault();
@@ -43,6 +47,7 @@ class Container extends Component {
       checkOut: state.checkOut,
       adults: state.adults,
       children: state.children,
+      daysQuantity: state.daysQuantity
     })
   }
 
@@ -52,84 +57,6 @@ class Container extends Component {
       roomName: props.name,
       roomPrice: roomPrice,
     })
-  }
-
-  getDate = () => {
-    const today = moment().format('DD/MM/YYYY');
-    const tomorrow = moment().add(1, 'days').format('DD/MM/YYYY');
-    this.setState({
-      checkIn: today,
-      checkOut: tomorrow
-    }) 
-  }
-
-	getDaysQuantity = (checkIn, checkOut) => {
-    const start = moment(checkIn, 'DD/MM/YYYY');
-    const end = moment(checkOut, 'DD/MM/YYYY');
-
-    const daysQuantity = end.diff(start, 'days');
-    if (daysQuantity <= 0) {
-      return (
-        this.setState({
-          mistake: true,
-          checkOut: 'Checkout'
-        })
-      )
-    } else {
-      return (
-        this.setState({
-          daysQuantity,
-          mistake: false
-        })
-      )
-    }
-  }
-
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name] : e.target.value,
-    })
-  }
-
-  handleChangeCheckIn  = date => {
-    const today = moment().format('DD/MM/YYYY');
-    const checkIn = moment(date).format('DD/MM/YYYY');
-    const start = moment(today, 'DD/MM/YYYY');
-    const end= moment(checkIn, 'DD/MM/YYYY');
-
-    const difference = end.diff(start, 'days');
-    if(difference > 0) {
-      const { checkOut } = this.state;
-      this.setState({ 
-        checkIn
-      });
-      this.getDaysQuantity(checkIn, checkOut);
-    } else {
-      this.setState({ 
-        checkIn: today
-      });
-    }
-  }
-
-  handleChangeCheckOut  = date => {
-    const { checkIn } = this.state;
-    const checkOut = moment(date).format('DD/MM/YYYY');
-    const checkOutCheck = moment(date).add(1, 'days').format('DD/MM/YYYY');
-    const start = moment(checkIn, 'DD/MM/YYYY');
-    const end= moment(checkOutCheck, 'DD/MM/YYYY');
-
-    const difference = end.diff(start, 'days');
-    if(difference > 0) {
-      const { checkIn } = this.state;
-      this.setState({ 
-        checkOut
-      });
-      this.getDaysQuantity(checkIn, checkOut);
-    } else {
-      this.setState({ 
-        checkOut: checkOutCheck
-      });
-    }
   }
 
 	handleSaveToLocalStorage = (props) => {
@@ -156,23 +83,13 @@ class Container extends Component {
             roomPrice,
             daysQuantity,
             quantity,
-            mistake
           } = this.state;
-    const { promo } = this.props;
+    const { promo, push } = this.props;
     return (
       <>
         <Form 
           submit={this.handleSubmit}
-          handleChange={this.handleChange}
-          handleChangeCheckIn={this.handleChangeCheckIn}
-          handleChangeCheckOut={this.handleChangeCheckOut}
-          checkIn={checkIn}
-          checkOut={checkOut}
-          adults={adults}
-          children={children}
         />
-        {(mistake) ?
-        <p className="dateMistake">Looks like there is a mistake, check the dates!</p> : null }
         <div className="container rar-summary">
 
           <div className="row">
@@ -187,8 +104,9 @@ class Container extends Component {
           <div className="row">
             <div className="col-md-8 main">
               <RoomsList 
-              handleCardClick={this.handleCardClick}
-              promo={promo}
+                handleCardClick={this.handleCardClick}
+                promo={promo}
+                push={push}
               />
             </div>
             <div className="col-md-4 sidebar">

@@ -7,11 +7,13 @@ class Home extends Component {
 
   render() {
     const { search } = this.props.location;
+    const { push } = this.props.history;
     return (
       <div className="room-and-rates">
           <NavBar />
           <Container 
             promo={search}
+            push={push}
           />
           <Footer />
       </div>
